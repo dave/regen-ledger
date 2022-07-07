@@ -41,7 +41,6 @@ Check out [Data Module Overview](../../modules/data/README.md) for more informat
 Supplemental to the core feature set described, Regen Ledger has out-of-the-box support for the creation of DAOs, multi-sig wallets, and smart contracting capabilities. These more complex features are enabled through an additional set of modules from the Cosmos ecosystem:
 
 - **Groups Module** – allowing nested accounts, or subkeys, with custom voting schemas for message execution
-- **CosmWasm Integration** – enabling WASM based smart contracts to live on Regen Ledger
 
 ### Groups Module
 
@@ -49,8 +48,3 @@ Supplemental to the core feature set described, Regen Ledger has out-of-the-box 
 A beta version of the group module is currently available using the experimental build of Regen Ledger and on [Hambach Testnet](../get-started/live-networks.md#hambach-testnet).
 :::
 
-### CosmWasm
-
-::: tip COMING SOON
-CosmWasm support will soon be made available using the experimental build of Regen Ledger and on [Hambach Testnet](../get-started/live-networks.md#hambach-testnet).
-:::

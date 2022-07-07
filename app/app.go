@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/CosmWasm/wasmd/x/wasm"
 	"github.com/cosmos/ibc-go/v2/modules/apps/transfer"
 	ibctransferkeeper "github.com/cosmos/ibc-go/v2/modules/apps/transfer/keeper"
 	ibctransfertypes "github.com/cosmos/ibc-go/v2/modules/apps/transfer/types"
@@ -205,9 +204,6 @@ type RegenApp struct {
 	FeeGrantKeeper   feegrantkeeper.Keeper
 	AuthzKeeper      authzkeeper.Keeper
 
-	// nolint
-	wasmKeeper wasm.Keeper
-
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
@@ -231,16 +227,12 @@ type RegenApp struct {
 
 	// module configurator
 	configurator module.Configurator
-
-	// wasm
-	wasmCfg wasm.Config
 }
 
 // NewRegenApp returns a reference to an initialized RegenApp.
 func NewRegenApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest bool, skipUpgradeHeights map[int64]bool,
 	homePath string, invCheckPeriod uint, encodingConfig simappparams.EncodingConfig,
 	appOpts servertypes.AppOptions,
-	wasmOpts []wasm.Option,
 	baseAppOptions ...func(*baseapp.BaseApp)) *RegenApp {
 
 	// TODO: Remove cdc legacyAmino in favor of appCodec once all modules are migrated.
@@ -402,7 +394,7 @@ func NewRegenApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest 
 		&stakingKeeper, govRouter,
 	)
 
-	app.setCustomKeepers(bApp, keys, appCodec, govRouter, homePath, appOpts, wasmOpts)
+	app.setCustomKeepers(bApp, keys, appCodec, govRouter, homePath, appOpts, nil)
 
 	var skipGenesisInvariants = cast.ToBool(appOpts.Get(crisis.FlagSkipGenesisInvariants))
 
@@ -555,7 +547,7 @@ func NewRegenApp(logger log.Logger, db dbm.DB, traceStore io.Writer, loadLatest 
 	// initialize BaseApp
 	app.SetInitChainer(app.InitChainer)
 	app.SetBeginBlocker(app.BeginBlocker)
-	anteHandler, err := app.setCustomAnteHandler(encodingConfig, keys[wasm.StoreKey], &app.wasmCfg)
+	anteHandler, err := app.setCustomAnteHandler(encodingConfig, nil, nil)
 	if err != nil {
 		panic(err)
 	}

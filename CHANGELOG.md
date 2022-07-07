@@ -166,7 +166,6 @@ It enables configurable builds for regen ledger (by building with an `EXPERIMENT
 * Experimental builds, are intended to have more experimental features which have not gone through a full internal audit and are intended for devnets and 3rd party developers who want to work on integrating with future features of regen ledger.
   * In addition to stable build modules, experimental build includes:
     * Regen specific modules (x/ecocredit, x/data)
-    * CosmWasm
     * x/group
 
 It is not guaranteed that APIs of features in the experimental build will remain consistent until they are migrated to the stable configuration.
@@ -194,7 +193,6 @@ It also includes an initial draft of the `x/group` module for on-chain multisig 
 * Data Module Proof of Consept (#118)
 * Eco-Credit Module Proof of Concept (#119)
 * Addition of vuepress docs site: docs.regen.network (#158)
-* Add CosmWasm module to regen ledger (#148)
 * Add group module (#154)
 
 
